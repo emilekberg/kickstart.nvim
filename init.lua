@@ -212,11 +212,14 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+-- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to te upper" })
 
 -- [NOTE] Build steps
-vim.keymap.set('n', '<C-B>', 'make', { desc = '[B]uild' })
--- vim.keymap.set('n', 'F7', 'echo build', { desc = 'Build' })
+vim.keymap.set('n', '<C-B>', ':CMakeBuild<CR>', { desc = '[B]uild' })
+vim.keymap.set('n', '<leader>mb', ':CMakeBuild<CR>', { desc = 'C[M]ake [B]uild' })
+vim.keymap.set('n', '<leader>md', ':CMakeDebug<CR>', { desc = 'C[M]ake [D]ebug' })
+vim.keymap.set('n', '<leader>mt', ':CMakeRunTest<CR>', { desc = 'C[M]ake Run [T]ests' })
+-- vim.keymap.set('n', 'F7', 'eco build', { desc = 'Build' })
 -- vim.keymap.set('n', 'F5', 'echo run', { desc = 'Debug Program' })
 
 -- [[ Basic Autocommands ]]

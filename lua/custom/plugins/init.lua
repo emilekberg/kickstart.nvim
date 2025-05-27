@@ -4,5 +4,7 @@
 -- See the kickstart.nvim README for more information
 return {
   'Civitasv/cmake-tools.nvim',
-  opts = {},
+  opts = {
+    cmake_generate_options = { '-G', 'Ninja', '-DCMAKE_EXPORT_COMPILE_COMMANDS=1' },
+  },
 }

@@ -170,13 +170,16 @@ vim.o.confirm = true
 --  See `:help vim.keymap.set()`
 
 -- move entire row up or down
+vim.keymap.set('v', '<A-j>', ":move '>+1<CR>gv=gv", { desc = 'Move row down - Visual' })
+vim.keymap.set('v', '<A-k>', ":move '<-2<CR>gv=gv", { desc = 'Move row up - Visual' })
 vim.keymap.set('n', '<A-j>', ':move +1<CR>', { desc = 'Move row down' })
 vim.keymap.set('n', '<A-k>', ':move -2<CR>', { desc = 'Move row up' })
+
 -- resize window
-vim.keymap.set('n', '<C-left>', ':vertical resize +1<CR>')
-vim.keymap.set('n', '<C-right>', ':vertical resize -1<CR>')
-vim.keymap.set('n', '<C-up>', ':resize +1<CR>')
-vim.keymap.set('n', '<C-down>', ':resize -1<CR>')
+vim.keymap.set('n', '<C-right>', ':vertical resize +3<CR>')
+vim.keymap.set('n', '<C-left>', ':vertical resize -3<CR>')
+vim.keymap.set('n', '<C-down>', ':resize +3<CR>')
+vim.keymap.set('n', '<C-up>', ':resize -3<CR>')
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -795,9 +798,13 @@ require('lazy').setup({
           }
         end
       end,
+      config = function()
+        require('conform').formatters['clang-format'] = { prepend_args = { '--style', '{ BasedOnStyle: LLVM, IndentWidth: 4 }' } }
+      end,
       formatters_by_ft = {
         lua = { 'stylua' },
         cpp = { 'clang-format' },
+        cmake = { 'cmakelang' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -908,6 +915,9 @@ require('lazy').setup({
   {
     'rebelot/kanagawa.nvim',
   },
+  {
+    'catppuccin/nvim',
+  },
 
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
@@ -927,7 +937,9 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'kanagawa-dragon'
+      --
+      -- vim.cmd.colorscheme 'kanagawa-dragon'
+      vim.cmd.colorscheme 'catppuccin-mocha'
     end,
   },
   -- Highlight todo, notes, etc in comments
@@ -1043,6 +1055,13 @@ require('lazy').setup({
     },
   },
 })
+
+vim.cmd [[
+  highlight Normal guibg=none
+  highlight NonText guibg=none
+  highlight Normal ctermbg=none
+  highlight NonText ctermbg=none
+]]
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

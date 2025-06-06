@@ -29,7 +29,12 @@ return {
     {
       '<F5>',
       function()
-        require('dap').continue()
+        local dap = require 'dap'
+        if dap.session() == nil then
+          vim.cmd 'CMakeDebug'
+        else
+          dap.continue()
+        end
       end,
       desc = 'Debug: Start/Continue',
     },
@@ -56,6 +61,13 @@ return {
     },
     {
       '<leader>b',
+      function()
+        require('dap').toggle_breakpoint()
+      end,
+      desc = 'Debug: Toggle Breakpoint',
+    },
+    {
+      '<F9>',
       function()
         require('dap').toggle_breakpoint()
       end,

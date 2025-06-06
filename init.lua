@@ -221,7 +221,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<C-B>', ':CMakeBuild<CR>', { desc = '[B]uild' })
 vim.keymap.set('n', '<leader>mb', ':CMakeBuild<CR>', { desc = 'C[M]ake [B]uild' })
 vim.keymap.set('n', '<leader>md', ':CMakeDebug<CR>', { desc = 'C[M]ake [D]ebug' })
-vim.keymap.set('n', '<leader>mt', ':CMakeRunTest<CR>', { desc = 'C[M]ake Run [T]ests' })
+vim.keymap.set('n', '<leader>mt', ':CMakeRunTest --output-on-failure<CR>', { desc = 'C[M]ake Run [T]ests' })
+-- vim.keymap.set('n', 'F5', ':CMakeDebug<CR>', { desc = 'CMake Debug' })
 -- vim.keymap.set('n', 'F7', 'eco build', { desc = 'Build' })
 -- vim.keymap.set('n', 'F5', 'echo run', { desc = 'Debug Program' })
 
@@ -442,6 +443,11 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
+        pickers = {
+          colorschem = {
+            enable_preview = true,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -458,7 +464,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = '[G]it [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
@@ -798,13 +803,10 @@ require('lazy').setup({
           }
         end
       end,
-      config = function()
-        require('conform').formatters['clang-format'] = { prepend_args = { '--style', '{ BasedOnStyle: LLVM, IndentWidth: 4 }' } }
-      end,
       formatters_by_ft = {
         lua = { 'stylua' },
         cpp = { 'clang-format' },
-        cmake = { 'cmakelang' },
+        cmake = { 'cmake_format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -918,7 +920,16 @@ require('lazy').setup({
   {
     'catppuccin/nvim',
   },
-
+  {
+    'Koalhack/darcubox-nvim',
+  },
+  {
+    'zenbones-theme/zenbones.nvim',
+    dependencies = 'rktjmp/lush.nvim',
+  },
+  {
+    'ellisonleao/gruvbox.nvim',
+  },
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
@@ -940,6 +951,7 @@ require('lazy').setup({
       --
       -- vim.cmd.colorscheme 'kanagawa-dragon'
       vim.cmd.colorscheme 'catppuccin-mocha'
+      -- vim.cmd.colorscheme 'gruvbox'
     end,
   },
   -- Highlight todo, notes, etc in comments

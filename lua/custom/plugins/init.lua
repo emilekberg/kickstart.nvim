@@ -3,6 +3,10 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
   -- lazy.nvim
   {
     'folke/noice.nvim',

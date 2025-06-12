@@ -187,6 +187,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>tt', ':ToggleTerm direction=float<cr>', { desc = 'Open [T]oggle[Term]' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -914,44 +915,38 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
-  {
-    'rebelot/kanagawa.nvim',
-  },
-  {
-    'catppuccin/nvim',
-  },
-  {
-    'Koalhack/darcubox-nvim',
-  },
+  { 'rebelot/kanagawa.nvim' },
+  { 'Koalhack/darcubox-nvim' },
+  { 'ellisonleao/gruvbox.nvim' },
+  { 'shaunsingh/nord.nvim' },
   {
     'zenbones-theme/zenbones.nvim',
     dependencies = 'rktjmp/lush.nvim',
-  },
-  {
-    'ellisonleao/gruvbox.nvim',
   },
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
+    'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+    lazy = false,
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
+      require('catppuccin').setup {
+        -- flavour = 'latte',
+        transparent_background = false,
+        no_italic = true,
       }
 
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       --
+      -- vim.cmd.colorscheme 'catppuccin'
       -- vim.cmd.colorscheme 'kanagawa-dragon'
-      vim.cmd.colorscheme 'catppuccin-mocha'
       -- vim.cmd.colorscheme 'gruvbox'
+      -- vim.cmd.colorscheme 'nord'
     end,
   },
   -- Highlight todo, notes, etc in comments
@@ -1077,3 +1072,9 @@ vim.cmd [[
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+vim.o.termguicolors = true
+
+vim.cmd.colorscheme 'catppuccin'
+-- vim.cmd.colorscheme 'kanagawa-dragon'
+-- vim.cmd.colorscheme 'gruvbox'
+-- vim.cmd.colorscheme 'nord'
